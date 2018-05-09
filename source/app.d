@@ -3,6 +3,7 @@ import std.file;
 import std.process;
 import std.string;
 import std.path : buildPath;
+import core.sys.posix.unistd;
 
 auto dish_funcs = [
     &dish_ls
@@ -32,6 +33,16 @@ string read_line() {
 }
 
 
+auto exec_command(string command) {
+    auto pid = core.sys.posix.unistd.fork;
+    if (pid == 0) {
+        if (execvp(command, []) == -1) {
+            // writeln("dish");
+        }
+    }
+}
+
+
 void d_shell() {
     dish_func_names["ls"] = 0;
     const USER_NAME = environment["USER"];
@@ -49,7 +60,10 @@ void d_shell() {
         else {
             // execvp(command, PATH);
             // execvp(command, []);
+            exec_command(command);
         }
+
+        writeln;
     }
 }
 
