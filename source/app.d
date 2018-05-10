@@ -18,10 +18,11 @@ void prompt() {
 }
 
 
-void dish_ls(string current_dir) {
+int dish_ls(string current_dir) {
     foreach (string e; dirEntries(current_dir, SpanMode.shallow)) {
         e.split("/")[$ - 1].writeln;
     }
+    return 1;
 }
 
 
@@ -34,14 +35,20 @@ string read_line() {
 }
 
 
-int exec_command(string command) {
+int exec_command(string command, string current_dir) {
     auto args = command.split;
     if (args.length == 0) {
         return 0;
     }
-    // auto pid = fork;
-    auto pid = spawnShell(command);
-    auto status = pid.wait;
+
+    int status;
+    if (command in dish_func_names) {
+        status = dish_funcs[dish_func_names[command]](current_dir);
+    }
+    else {
+        auto pid = spawnShell(command);
+        status = pid.wait;
+    }
 
     return status;
 }
@@ -54,20 +61,12 @@ void d_shell() {
     auto PATH = environment["PATH"].split(":");
     PATH.writeln;
     PATH.length.writeln;
+    current_dir.writeln;
     do {
         prompt;
         string command = read_line;
+        exec_command(command, current_dir);
 
-        if (command in dish_func_names) {
-            dish_funcs[dish_func_names[command]](current_dir);
-        }
-        else {
-            // execvp(command, PATH);
-            // execvp(command, []);
-            exec_command(command);
-        }
-
-        // writeln;
     } while (true);
 }
 
