@@ -40,29 +40,10 @@ int exec_command(string command) {
         return 0;
     }
     // auto pid = fork;
-    auto pid = fork;
-    command.writeln;
-    args.writeln;
-    // auto pid = corde.sys.posix.unistd.fork;
-    writeln("command: ", command);
-    if (pid == 0) {
-        // executeShell(command);
-        // if (execvp(command, path) == -1) {
-        // execvp(args[0], args);
+    auto pid = spawnShell(command);
+    auto status = pid.wait;
 
-        void f() { execvp(args[0], args); }
-        new Thread(&f).start;
-
-        // new Thread(() => {execve(command, [], path);}).start;
-        // if (execvp(command, []) == -1) {
-        // // if (execvpe(command, path, path) == -1) {
-        //     writeln("dish");
-        // }
-        // else {
-        //     writeln("hoge");
-        // }
-    }
-    return 1;
+    return status;
 }
 
 
