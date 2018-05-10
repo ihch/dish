@@ -3,7 +3,8 @@ import std.file;
 import std.process;
 import std.string;
 import std.path : buildPath;
-import core.sys.posix.unistd;
+import core.thread : Thread;
+import core.sys.posix.unistd : fork;
 
 auto dish_funcs = [
     &dish_ls
@@ -33,13 +34,35 @@ string read_line() {
 }
 
 
-auto exec_command(string command) {
-    auto pid = core.sys.posix.unistd.fork;
-    if (pid == 0) {
-        if (execvp(command, []) == -1) {
-            // writeln("dish");
-        }
+int exec_command(string command) {
+    auto args = command.split;
+    if (args.length == 0) {
+        return 0;
     }
+    // auto pid = fork;
+    auto pid = fork;
+    command.writeln;
+    args.writeln;
+    // auto pid = corde.sys.posix.unistd.fork;
+    writeln("command: ", command);
+    if (pid == 0) {
+        // executeShell(command);
+        // if (execvp(command, path) == -1) {
+        // execvp(args[0], args);
+
+        void f() { execvp(args[0], args); }
+        new Thread(&f).start;
+
+        // new Thread(() => {execve(command, [], path);}).start;
+        // if (execvp(command, []) == -1) {
+        // // if (execvpe(command, path, path) == -1) {
+        //     writeln("dish");
+        // }
+        // else {
+        //     writeln("hoge");
+        // }
+    }
+    return 1;
 }
 
 
@@ -50,7 +73,7 @@ void d_shell() {
     auto PATH = environment["PATH"].split(":");
     PATH.writeln;
     PATH.length.writeln;
-    while (true) {
+    do {
         prompt;
         string command = read_line;
 
@@ -63,8 +86,8 @@ void d_shell() {
             exec_command(command);
         }
 
-        writeln;
-    }
+        // writeln;
+    } while (true);
 }
 
 
