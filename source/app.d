@@ -7,10 +7,11 @@ import core.thread : Thread;
 import core.sys.posix.unistd : fork;
 
 auto dish_funcs = [
-    &dish_ls
+    &dish_ls,
+    &dish_exit
 ];
 
-int[string] dish_func_names;
+ulong[string] dish_func_names;
 
 void prompt() {
     const userName = environment["USER"];
@@ -23,6 +24,12 @@ int dish_ls(string current_dir) {
         e.split("/")[$ - 1].writeln;
     }
     return 1;
+}
+
+
+int dish_exit(string current_dir) {
+    writeln("exit dish. good bye!");
+    return -1;
 }
 
 
@@ -55,19 +62,22 @@ int exec_command(string command, string current_dir) {
 
 
 void d_shell() {
-    dish_func_names["ls"] = 0;
+    dish_func_names["ls"] = dish_func_names.length;
+    dish_func_names["exit"] = dish_func_names.length;
     const USER_NAME = environment["USER"];
     string current_dir = getcwd;
     auto PATH = environment["PATH"].split(":");
     PATH.writeln;
     PATH.length.writeln;
     current_dir.writeln;
+
+    int status;
     do {
         prompt;
         string command = read_line;
-        exec_command(command, current_dir);
+        status = exec_command(command, current_dir);
 
-    } while (true);
+    } while (status != -1);
 }
 
 
