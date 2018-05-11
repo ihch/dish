@@ -59,8 +59,6 @@ void d_shell() {
     const USER_NAME = environment["USER"];
     string current_dir = getcwd;
     auto PATH = environment["PATH"].split(":");
-    PATH.writeln;
-    PATH.length.writeln;
     current_dir.writeln;
 
     int status;
