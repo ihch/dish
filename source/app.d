@@ -6,18 +6,14 @@ import std.path : buildPath;
 import core.thread : Thread;
 import core.sys.posix.unistd : fork;
 
-auto dish_funcs = [
-    &dish_ls,
-    &dish_exit
-];
+auto dish_funcs = [&dish_ls, &dish_exit];
 
 ulong[string] dish_func_names;
 
 void prompt() {
     const userName = environment["USER"];
-    writef(userName ~ " > " );
+    writef(userName ~ " > ");
 }
-
 
 int dish_ls(string current_dir) {
     foreach (string e; dirEntries(current_dir, SpanMode.shallow)) {
@@ -26,12 +22,10 @@ int dish_ls(string current_dir) {
     return 1;
 }
 
-
 int dish_exit(string current_dir) {
     writeln("exit dish. good bye!");
     return -1;
 }
-
 
 string read_line() {
     string line = readln;
@@ -40,7 +34,6 @@ string read_line() {
     }
     return null;
 }
-
 
 int exec_command(string command, string current_dir) {
     auto args = command.split;
@@ -60,7 +53,6 @@ int exec_command(string command, string current_dir) {
     return status;
 }
 
-
 void d_shell() {
     dish_func_names["ls"] = dish_func_names.length;
     dish_func_names["exit"] = dish_func_names.length;
@@ -77,11 +69,10 @@ void d_shell() {
         string command = read_line;
         status = exec_command(command, current_dir);
 
-    } while (status != -1);
+    }
+    while (status != -1);
 }
 
-
-void main()
-{
+void main() {
     d_shell;
 }
