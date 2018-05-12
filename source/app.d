@@ -19,6 +19,7 @@ int dish_ls(string current_dir) {
     foreach (string e; dirEntries(current_dir, SpanMode.shallow)) {
         e.split("/")[$ - 1].writeln;
     }
+    writeln;
     return 1;
 }
 
