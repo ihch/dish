@@ -59,14 +59,14 @@ void d_shell() {
     const USER_NAME = environment["USER"];
     string current_dir = getcwd;
     auto PATH = environment["PATH"].split(":");
-    current_dir.writeln;
+
+    writefln("Hello, %s. Let's Hack!", USER_NAME);
 
     int status;
     do {
         prompt;
         string command = read_line;
         status = exec_command(command, current_dir);
-
     }
     while (status != -1);
 }
