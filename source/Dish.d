@@ -13,7 +13,7 @@ class Dish {
     }
 
     public {
-        Command[] commands;
+        Command[string] commands;
     }
 
     this() {
