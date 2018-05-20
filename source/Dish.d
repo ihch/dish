@@ -25,6 +25,7 @@ class Dish {
         commands = [
             "prompt": Command("prompt", &this.prompt),
             "ls": Command("ls", &this.ls),
+            "exit": Command("exit", &this.exit),
             "hoge": Command("hoge", &this.hoge),
         ];
     }
@@ -41,6 +42,11 @@ class Dish {
         return 1;
     }
 
+    int exit(string[] args) {
+        "see you again.".writeln;
+        return 0;
+    }
+
     int hoge(string[] args) {
         "hoge".writeln;
         return 1;
@@ -52,4 +58,5 @@ void main() {
     dish.commands["prompt"].command([]);
     dish.commands["ls"].command([getcwd]);
     dish.commands["hoge"].command([]);
+    dish.commands["exit"].command([]);
 }
