@@ -31,7 +31,7 @@ class Dish {
     }
 
     int prompt(string[] args) {
-        (USER_NAME ~ " >").writeln;
+        (USER_NAME ~ " > ").write;
         return 1;
     }
 
@@ -51,12 +51,4 @@ class Dish {
         "hoge".writeln;
         return 1;
     }
-}
-
-void main() {
-    Dish dish = new Dish();
-    dish.commands["prompt"].command([]);
-    dish.commands["ls"].command([getcwd]);
-    dish.commands["hoge"].command([]);
-    dish.commands["exit"].command([]);
 }
