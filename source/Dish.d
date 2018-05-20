@@ -23,8 +23,15 @@ class Dish {
         this.PATH = environment["PATH"].split(":");
 
         commands = [
+            "prompt": Command("prompt", &this.prompt),
             "ls": Command("ls", &this.ls),
+            "hoge": Command("hoge", &this.hoge),
         ];
+    }
+
+    int prompt(string[] args) {
+        (USER_NAME ~ " >").writeln;
+        return 1;
     }
 
     int ls(string[] args) {
@@ -33,9 +40,16 @@ class Dish {
         }
         return 1;
     }
+
+    int hoge(string[] args) {
+        "hoge".writeln;
+        return 1;
+    }
 }
 
 void main() {
     Dish dish = new Dish();
+    dish.commands["prompt"].command([]);
     dish.commands["ls"].command([getcwd]);
+    dish.commands["hoge"].command([]);
 }
