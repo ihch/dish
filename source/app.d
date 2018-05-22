@@ -34,6 +34,9 @@ void d_shell() {
         if (p != null) {
             status = p.command([]);
         }
+        else {
+            "dish: unknown command '%s'".writefln(command.split[0]);
+        }
     }
     while (status > 0);
 }
