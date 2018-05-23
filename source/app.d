@@ -35,7 +35,10 @@ void d_shell() {
             status = p.command([]);
         }
         else {
-            "dish: unknown command '%s'".writefln(command.split[0]);
+            auto exec_status = spawnShell(command ~ " 2> /dev/null").wait;
+            if (exec_status != 0 && exec_status != 1) {
+                "dish: unknown command '%s'".writefln(command.split[0]);
+            }
         }
     }
     while (status > 0);
