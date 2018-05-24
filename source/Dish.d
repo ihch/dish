@@ -42,6 +42,11 @@ class Dish {
         return 1;
     }
 
+    int echo(string[] args) {
+        // ex1. args[0] : "echo hoge"
+        // ex2. args[0] : "echo $USER"
+    }
+
     int exit(string[] args) {
         "see you again.".writeln;
         return 0;
