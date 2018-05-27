@@ -45,6 +45,16 @@ class Dish {
     int echo(string[] args) {
         // ex1. args[0] : "echo hoge"
         // ex2. args[0] : "echo $USER"
+
+        string[] args_splited = args[0].split;
+        string command = args_splited[0];
+        if (args_splited[0][0] == '$') {
+            environment[args_splited[0]].writeln;
+        }
+        else {
+            args_splited.writeln;
+        }
+        return 1;
     }
 
     int exit(string[] args) {
