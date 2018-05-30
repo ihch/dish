@@ -25,6 +25,7 @@ class Dish {
         commands = [
             "prompt": Command("prompt", &this.prompt),
             "ls": Command("ls", &this.ls),
+            "echo": Command("echo", &this.echo),
             "exit": Command("exit", &this.exit),
             "hoge": Command("hoge", &this.hoge),
         ];
@@ -48,11 +49,16 @@ class Dish {
 
         string[] args_splited = args[0].split;
         string command = args_splited[0];
-        if (args_splited[0][0] == '$') {
-            environment[args_splited[0]].writeln;
+        if (args_splited[1][0] == '$') {
+            if (args_splited[1][1..$] in environment) {
+                environment[args_splited[1][1..$]].writeln;
+            }
+            else {
+                "%s is not found.".writefln(args_splited[1]);
+            }
         }
         else {
-            args_splited.writeln;
+            args_splited[1].writeln;
         }
         return 1;
     }
