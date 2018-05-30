@@ -32,7 +32,7 @@ void d_shell() {
 
         Command* p = (command.split[0] in dish.commands);
         if (p != null) {
-            status = p.command([]);
+            status = p.command([command]);
         }
         else {
             // " 2> /dev/null" 標準エラー出力を虚無の世界に投げています
