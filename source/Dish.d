@@ -12,6 +12,7 @@ class Dish {
         const string USER_NAME;
         const string[] PATH;
         string current_dir;
+        string[] hist;
     }
 
     public {
@@ -59,7 +60,13 @@ class Dish {
             }
         }
         else {
-            args_splited[1].writeln;
+            foreach (i, e; args_splited[1..$]) {
+                if (i != 0) {
+                    " ".write;
+                }
+                e.write;
+            }
+            writeln;
         }
         return 1;
     }
