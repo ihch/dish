@@ -26,6 +26,7 @@ class Dish {
             "prompt": Command("prompt", &this.prompt),
             "ls": Command("ls", &this.ls),
             "echo": Command("echo", &this.echo),
+            "pwd": Command("pwd", &this.pwd),
             "exit": Command("exit", &this.exit),
             "hoge": Command("hoge", &this.hoge),
         ];
@@ -59,6 +60,17 @@ class Dish {
         }
         else {
             args_splited[1].writeln;
+        }
+        return 1;
+    }
+
+    int pwd(string[] args) {
+        string[] args_splited = args[0].split;
+        if (args_splited[0] == "pwd" && args_splited.length == 1) {
+            getcwd.writeln;
+        }
+        else {
+            "pwd: expected 0 args. got %d".writefln(args_splited.length - 1);
         }
         return 1;
     }
