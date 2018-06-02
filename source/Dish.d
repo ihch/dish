@@ -28,6 +28,7 @@ class Dish {
             "ls": Command("ls", &this.ls),
             "echo": Command("echo", &this.echo),
             "pwd": Command("pwd", &this.pwd),
+            "cd": Command("cd", &this.cd),
             "exit": Command("exit", &this.exit),
             "hoge": Command("hoge", &this.hoge),
         ];
@@ -78,6 +79,41 @@ class Dish {
         }
         else {
             "pwd: expected 0 args. got %d".writefln(args_splited.length - 1);
+        }
+        return 1;
+    }
+
+    int cd(string[] args) {
+        string[] args_splited = args[0].split;
+        string command = args_splited[0];
+        string[] command_args = args_splited[1..$];
+
+        if (command_args.length == 1) {
+            string dir_path;
+            if (command_args[0][0] == '/') {
+                dir_path = command_args[0];
+            }
+            else if (command_args[0][0] == '~') {
+                if (command_args[0].length == 1) {
+                    dir_path = "/Users/" ~ environment["USER"];
+                }
+                else {
+                    dir_path = "/Users/" ~ environment["USER"] ~ command_args[0][1..$];
+                }
+            }
+            else {
+                dir_path = getcwd ~ "/" ~ command_args[0];
+            }
+
+            if (exists(dir_path)) {
+                chdir(dir_path);
+            }
+            else {
+                "cd: The directory '%s' does not exist".writefln(dir_path);
+            }
+        }
+        else {
+            "cd: expected 0 args. got %d".writefln(args_splited.length - 1);
         }
         return 1;
     }
