@@ -48,8 +48,7 @@ class Dish {
 
     int echo(string[] args) {
         // ex1. args[0] : "echo hoge"
-        // ex2. args[0] : "echo $USER"
-
+        // ex2. args[0] : "echo $USER" 
         string[] args_splited = args[0].split;
         string command = args_splited[0];
         if (args_splited[1][0] == '$') {
@@ -113,7 +112,7 @@ class Dish {
             }
         }
         else {
-            "cd: expected 0 args. got %d".writefln(args_splited.length - 1);
+            "cd: expected 1 args. got %d".writefln(args_splited.length - 1);
         }
         return 1;
     }
