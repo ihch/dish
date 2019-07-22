@@ -36,7 +36,7 @@ void d_shell() {
         }
         else {
             // " 2> /dev/null" 標準エラー出力を虚無の世界に投げています
-            auto exec_status = spawnShell(command ~ " 2> /dev/null").wait;
+            const auto exec_status = spawnShell(command ~ " 2> /dev/null").wait;
             if (exec_status != 0 && exec_status != 1) {
                 "dish: unknown command '%s'".writefln(command.split[0]);
             }
