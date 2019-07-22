@@ -1,5 +1,7 @@
 module Dish;
 
+import std.algorithm;
+import std.algorithm.mutation : SwapStrategy;
 import std.stdio;
 import std.conv;
 import std.string;
@@ -34,14 +36,42 @@ class Dish {
         ];
     }
 
+    string foreground_gen(int c)
+    {
+        return "\x1b[38;5;" ~ to!string(c) ~ "m";
+    }
+    string background_gen(int c)
+    {
+        return "\x1b[48;5;" ~ to!string(c) ~ "m";
+    }
+
     int prompt(string[] args) {
+
+        const string prompt_end = "\x1b[0m";
+        const int prompt_color = 0x2D;
+        foreground_gen(prompt_color).write;
         (USER_NAME ~ " > ").write;
+        prompt_end.write;
         return 1;
     }
 
     int ls(string[] args) {
-        foreach(string e; dirEntries(getcwd, SpanMode.shallow)) {
-            e.split("/")[$ - 1].writeln;
+        string[] entries;
+        foreach (d; dirEntries(getcwd, SpanMode.shallow)) {
+          entries ~= d.name;
+        }
+        entries.sort!("toUpper(a) < toUpper(b)", SwapStrategy.stable);
+
+        foreach(d; entries) {
+            if (d.isFile) d.split("/")[$ - 1].writeln;
+            else {
+                // ディレクトリに着色
+                const string prompt_end = "\x1b[0m";
+                foreground_gen(0x27).write;
+                "\x1b[1m".write;
+                (d.split("/")[$ - 1] ~ "/").write;
+                prompt_end.writeln;
+            }
         }
         return 1;
     }
