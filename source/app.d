@@ -8,6 +8,11 @@ import Command : Command;
 import Dish : Dish;
 
 
+/++
+  read user input command
+
+  return: result string
++/
 string read_line() {
     string line = readln;
     if (line[$ - 1] == '\n') {
@@ -16,6 +21,9 @@ string read_line() {
     return line;
 }
 
+/++
+  run dish
++/
 void d_shell() {
     auto dish = new Dish;
 
