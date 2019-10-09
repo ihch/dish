@@ -1,0 +1,23 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        dc: [dmd-2.079.0]
+
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install D compiler
+      uses: mihails-strasuns/setup-dlang@v0.3.0
+      with:
+        compiler: ${{ matrix.dc }}
+    - name: Build
+      run: dub build
+    - name: Run tests
+      run: dub test
