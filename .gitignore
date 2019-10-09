@@ -1,12 +1,5 @@
+# directories
 .dub
-docs.json
-__dummy.html
-*.o
-*.obj
 
-# my files
-/source/play_ground.d
-/source/aaa.d
-/source/poyo.d
-/source/hoge.d
-/source/Dish
+# executable files
+dish
