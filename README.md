@@ -1,4 +1,4 @@
-# dish - Dlang interactive shell
+# dish - Dlang interactive shell ![](https://github.com/nemusou/dish/workflows/CI/badge.svg)
 
 ## usage
 ```shell
