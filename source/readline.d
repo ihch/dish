@@ -16,7 +16,7 @@ int getch()
     ch = getchar();
     tcsetattr(0, TCSANOW, &oldt);
 
-    ch.write;
+    // ch.write;
     // write(cast(char) ch);
     return ch;
 }
@@ -34,17 +34,16 @@ string read_line() {
         if (c == 27) {
           getch();
           c = getch();
-          if (c == 65) write("<up>");
-          if (c == 66) write("<down>");
-          if (c == 67) write("<right>");
-          if (c == 68) write("<left>");
+          if (c == 65) { /+ write("<up>"); +/ }
+          if (c == 66) { /+ write("<down>"); +/ }
+          if (c == 67) { /+ write("<right>"); +/ }
+          if (c == 68) { /+ write("<left>"); +/ }
           continue;
         }
         if (c == 127) write("<BS>");
         buffer ~= c;
         // write(c);
     } while (buffer.length == 0 || buffer[$ - 1] != '\n');
-    writeln(buffer);
 
     return buffer.chomp;
 }
