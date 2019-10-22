@@ -40,10 +40,19 @@ string read_line() {
           if (c == 68) { /+ write("<left>"); +/ }
           continue;
         }
-        if (c == 127) write("<BS>");
-        buffer ~= c;
-        // write(c);
+        if (c == 127) {
+          backspace(buffer);
+          continue;
+        }
+        buffer ~= cast(char)c;
+        write(cast(char)c);
     } while (buffer.length == 0 || buffer[$ - 1] != '\n');
 
     return buffer.chomp;
+}
+
+void backspace(ref string s) {
+  if (s.length <= 0) return;
+  s = s[0..$-1];
+  write("\b \b");
 }
