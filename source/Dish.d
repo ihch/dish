@@ -50,7 +50,7 @@ class Dish {
         const string prompt_end = "\x1b[0m";
         const int prompt_color = 0x2D;
         foreground_gen(prompt_color).write;
-        (USER_NAME ~ " > ").write;
+        (USER_NAME ~ " ❯ ").write;
         prompt_end.write;
         return 1;
     }
