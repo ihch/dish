@@ -12,5 +12,5 @@ dub build
 ```
 
 ## caution
-You should not change default shell to dish.  
+Don't change default shell to dish.  
 dish is now developing.  
