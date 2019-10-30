@@ -2,9 +2,7 @@ import core.sys.posix.termios;
 import std.stdio;
 import std.string;
 
-
-int getch()
-{
+int getch() {
     int ch;
     termios oldt;
     termios newt;
@@ -32,27 +30,29 @@ string read_line() {
     do {
         int c = getch();
         if (c == 27) {
-          getch();
-          c = getch();
-          if (c == 65) { /+ write("<up>"); +/ }
-          if (c == 66) { /+ write("<down>"); +/ }
-          if (c == 67) { /+ write("<right>"); +/ }
-          if (c == 68) { /+ write("<left>"); +/ }
-          continue;
+            getch();
+            c = getch();
+            if (c == 65) { /+ write("<up>"); +/ }
+            if (c == 66) { /+ write("<down>"); +/ }
+            if (c == 67) { /+ write("<right>"); +/ }
+            if (c == 68) { /+ write("<left>"); +/ }
+            continue;
         }
         if (c == 127) {
-          backspace(buffer);
-          continue;
+            backspace(buffer);
+            continue;
         }
-        buffer ~= cast(char)c;
-        write(cast(char)c);
-    } while (buffer.length == 0 || buffer[$ - 1] != '\n');
+        buffer ~= cast(char) c;
+        write(cast(char) c);
+    }
+    while (buffer.length == 0 || buffer[$ - 1] != '\n');
 
     return buffer.chomp;
 }
 
 void backspace(ref string s) {
-  if (s.length <= 0) return;
-  s = s[0..$-1];
-  write("\b \b");
+    if (s.length <= 0)
+        return;
+    s = s[0 .. $ - 1];
+    write("\b \b");
 }
